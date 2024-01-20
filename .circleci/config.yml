@@ -24,7 +24,6 @@ jobs:
           name: Run tests
           command: pipenv run pytest
   deploy:
-    
     docker:
       - image: cimg/python:3.9
     steps:
@@ -33,4 +32,4 @@ jobs:
           name: Deploy Over SSH
           command: |
             ssh-keyscan -H ssh.pythonanywhere.com >> ~/.ssh/known_hosts
-            ssh $SSH_USER@$SSH_HOST "cd automating-flask-deployments-with-pythonanywhere; git pull";
+            ssh $SSH_USER@$SSH_HOST "cd automating-flask-python-anywhere; git pull";
