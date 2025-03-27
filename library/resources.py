@@ -47,6 +47,8 @@ def login():
 def create_book(current_user):
     '''adds a new book to collection!'''
     data = request.get_json()
+    if not data or 'title' not in data or 'author' not in data:
+            return jsonify({'message': 'Invalid input!'}), 400
     book = BookModel.query.filter_by(title=data['title']).first()
     if book:
         return make_response(jsonify({"message": "Book with same title already exists!"}), 409)
@@ -54,7 +56,7 @@ def create_book(current_user):
         new_books = BookModel(title=data['title'], author=data['author'], owner=current_user) 
         db.session.add(new_books)  
         db.session.commit() 
-        return jsonify({'message' : 'new book created'}), 201
+        return jsonify({'message' : 'new book created'})
 
 # get all books
 @app.route('/bookapi/books', methods=['GET'])
